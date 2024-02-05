@@ -1,5 +1,6 @@
 plugins {
   alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.publish)
   alias(libs.plugins.spotless)
   `java-gradle-plugin`
 }
