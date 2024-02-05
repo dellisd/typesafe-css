@@ -8,7 +8,7 @@ Generate typesafe CSS classname accessors for Kotlin/JS browser apps, akin to [C
 
 ```kotlin
 plugins {
-  id("ca.derekellis.ca")
+  id("ca.derekellis.css")
 }
 
 css {
