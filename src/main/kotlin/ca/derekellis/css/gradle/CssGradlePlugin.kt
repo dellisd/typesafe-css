@@ -31,10 +31,8 @@ class CssGradlePlugin : Plugin<Project> {
 
   private fun Project.registerTask(sourceSet: KotlinSourceSet, extension: CssExtension): TaskProvider<GenerateCssRefsTask> {
     val outputDir = layout.buildDirectory.dir("generated/css/${sourceSet.name}")
-    outputDir.get().asFile.mkdirs()
-    sourceSet.kotlin.srcDirs(outputDir)
 
-    return tasks.register(
+    val task = tasks.register(
       "generate${sourceSet.name.replaceFirstChar { it.uppercase() }}CssRefs",
       GenerateCssRefsTask::class.java,
     ) { task ->
@@ -42,5 +40,8 @@ class CssGradlePlugin : Plugin<Project> {
       task.inputFiles.from(sourceSet.resources.sourceDirectories.asFileTree.filter { it.extension == "css" })
       task.outputDirectory.set(outputDir)
     }
+    sourceSet.kotlin.srcDirs(task.map { it.outputDirectory })
+
+    return task
   }
 }
